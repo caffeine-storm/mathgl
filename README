@@ -1,3 +1,5 @@
+Forked from github.com/MobRulesGames/mathgl@79bd4ce3042d23c2cb1ea06df739b527d6fca96f
+
 MathGL is a simple 3D math library written in Go which should help writing
 OpenGL code.
 
