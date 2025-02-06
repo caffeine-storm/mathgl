@@ -103,7 +103,7 @@ func TestVec2(t *testing.T) {
 		t.Errorf(message)
 	}
 	if !v2.AreEqual(v2) {
-		message := fmt.Sprintf("Vector is not equal with himelf. We screwed up badly!", v2.X, v2.Y)
+		message := fmt.Sprintf("Vector is not equal with himelf. We screwed up badly! X: %f Y: %f", v2.X, v2.Y)
 		t.Errorf(message)
 	}
 
@@ -152,4 +152,27 @@ func TestPolyClipping(t *testing.T) {
 	p = append(p, Vec2{3, 5})
 	p = append(p, Vec2{6, 0})
 	p.Clip(&Seg2{Vec2{2,0}, Vec2{2,10}})
+
+	// After clipping (2,0) to (2,10), we expect anything to the left of x=2 to
+	// get dropped; there should be no vertex left of x=2.
+	for i, vert := range p {
+		if vert.X < 2 {
+			t.Logf("bad vertex %d %v", i, vert)
+			t.Fail()
+		}
+	}
+
+	// There needs to be two vertices at the clip
+	needed := map[Vec2]bool {
+		{2, 1}: true,
+		{2, 3.5}: true,
+	}
+	for _, vert := range p {
+		if needed[vert] {
+			delete(needed, vert)
+		}
+	}
+	if len(needed) != 0 {
+		t.Fatalf("couldn't find expected vertices: %v", needed)
+	}
 }
