@@ -144,33 +144,39 @@ func TestMat4(t *testing.T) {
 }
 
 func TestPolyClipping(t *testing.T) {
-	var p Poly
-	p = append(p, Vec2{3, 0})
-	p = append(p, Vec2{1, 2})
-	p = append(p, Vec2{3, 5})
-	p = append(p, Vec2{6, 0})
-	p.Clip(&Seg2{Vec2{2, 0}, Vec2{2, 10}})
+	var pp Poly
+	pp = append(pp, Vec2{3, 0})
+	pp = append(pp, Vec2{1, 2})
+	pp = append(pp, Vec2{3, 5})
+	pp = append(pp, Vec2{6, 0})
 
-	// After clipping (2,0) to (2,10), we expect anything to the left of x=2 to
-	// get dropped; there should be no vertex left of x=2.
-	for i, vert := range p {
-		if vert.X < 2 {
-			t.Logf("bad vertex %d %v", i, vert)
-			t.Fail()
-		}
-	}
+	t.Run("clip off left extent", func(t *testing.T) {
+		p := make(Poly, len(pp))
+		copy(p, pp)
 
-	// There needs to be two vertices at the clip
-	needed := map[Vec2]bool{
-		{2, 1}:   true,
-		{2, 3.5}: true,
-	}
-	for _, vert := range p {
-		if needed[vert] {
-			delete(needed, vert)
+		p.Clip(&Seg2{Vec2{2, 0}, Vec2{2, 10}})
+
+		// After clipping (2,0) to (2,10), we expect anything to the left of x=2 to
+		// get dropped; there should be no vertex left of x=2.
+		for i, vert := range p {
+			if vert.X < 2 {
+				t.Logf("bad vertex %d %v", i, vert)
+				t.Fail()
+			}
 		}
-	}
-	if len(needed) != 0 {
-		t.Fatalf("couldn't find expected vertices: %v", needed)
-	}
+
+		// There needs to be two vertices at the clip
+		needed := map[Vec2]bool{
+			{2, 1}:   true,
+			{2, 3.5}: true,
+		}
+		for _, vert := range p {
+			if needed[vert] {
+				delete(needed, vert)
+			}
+		}
+		if len(needed) != 0 {
+			t.Fatalf("couldn't find expected vertices: %v", needed)
+		}
+	})
 }
