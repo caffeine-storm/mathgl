@@ -190,4 +190,14 @@ func TestPolyClipping(t *testing.T) {
 			t.Fatalf("should have clipped out all geometry, but was left with %v", p)
 		}
 	})
+	t.Run("clip the whole thing but only cover a fraction of its height", func(t *testing.T) {
+		p := make(Poly, len(pp))
+		copy(p, pp)
+
+		p.Clip(&Seg2{Vec2{10, 1}, Vec2{10, 2}})
+
+		if len(p) != 0 {
+			t.Fatalf("should have clipped out all geometry, but was left with %v", p)
+		}
+	})
 }
