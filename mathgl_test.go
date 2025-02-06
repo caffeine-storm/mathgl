@@ -179,4 +179,15 @@ func TestPolyClipping(t *testing.T) {
 			t.Fatalf("couldn't find expected vertices: %v", needed)
 		}
 	})
+
+	t.Run("clip the whole thing", func(t *testing.T) {
+		p := make(Poly, len(pp))
+		copy(p, pp)
+
+		p.Clip(&Seg2{Vec2{10, -10}, Vec2{10, 10}})
+
+		if len(p) != 0 {
+			t.Fatalf("should have clipped out all geometry, but was left with %v", p)
+		}
+	})
 }
