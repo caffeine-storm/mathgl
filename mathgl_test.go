@@ -109,7 +109,6 @@ func TestVec2(t *testing.T) {
 
 }
 
-
 func TestMat3(t *testing.T) {
 	m := Mat3{5.0, 8.0, 1.0, 2.0, 9.0, 3.0, 4.0, 7.0, 4.0}
 	n := m
@@ -125,7 +124,6 @@ func TestMat3(t *testing.T) {
 		t.Errorf("The Mat3 matrix is not a identity matrix after multiplying itself with its inverse.")
 	}
 }
-
 
 func TestMat4(t *testing.T) {
 	var m Mat4
@@ -151,7 +149,7 @@ func TestPolyClipping(t *testing.T) {
 	p = append(p, Vec2{1, 2})
 	p = append(p, Vec2{3, 5})
 	p = append(p, Vec2{6, 0})
-	p.Clip(&Seg2{Vec2{2,0}, Vec2{2,10}})
+	p.Clip(&Seg2{Vec2{2, 0}, Vec2{2, 10}})
 
 	// After clipping (2,0) to (2,10), we expect anything to the left of x=2 to
 	// get dropped; there should be no vertex left of x=2.
@@ -163,8 +161,8 @@ func TestPolyClipping(t *testing.T) {
 	}
 
 	// There needs to be two vertices at the clip
-	needed := map[Vec2]bool {
-		{2, 1}: true,
+	needed := map[Vec2]bool{
+		{2, 1}:   true,
 		{2, 3.5}: true,
 	}
 	for _, vert := range p {

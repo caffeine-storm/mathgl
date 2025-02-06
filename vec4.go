@@ -77,14 +77,13 @@ func (v *Vec4) Transform(m *Mat4) {
 	v.W = t.X*m[3] + t.Y*m[7] + t.Z*m[11] + t.W*m[15]
 }
 
-/// Loops through an input slice transforming each Vec4 by the given Mat3
+// / Loops through an input slice transforming each Vec4 by the given Mat3
 func (v *Vec3) TransformArray(x []Vec4, m *Mat4) {
 	for _, item := range x {
 		// TODO: We should test this
 		item.Transform(m)
 	}
 }
-
 
 // Scales a vector to the given length s in float32.
 func (v *Vec4) Scale(s float32) {
