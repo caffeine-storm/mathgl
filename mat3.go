@@ -145,8 +145,8 @@ func (m *Mat3) Scaling(x, y float32) {
 // Set the matrix to a translation matrix, which translates with given x,y floats32
 func (m *Mat3) Translation(x, y float32) {
 	m.Identity()
-	m[6] = x
-	m[7] = y
+	m[2] = x
+	m[5] = y
 }
 
 // Set the matrix to a matrix that rotates around the x-axis
