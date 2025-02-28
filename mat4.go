@@ -235,9 +235,9 @@ func (m *Mat4) Scaling(x, y, z float32) {
 // Set the matrix to a translation matrix, which translates with given x,y floats32
 func (m *Mat4) Translation(x, y, z float32) {
 	m.Identity()
-	m[12] = x
-	m[13] = y
-	m[14] = z
+	m[3] = x
+	m[7] = y
+	m[11] = z
 }
 
 // Set the matrix to a matrix that rotates around the x-axis
