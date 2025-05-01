@@ -1,9 +1,5 @@
 package mathgl
 
-import (
-	"fmt"
-)
-
 // Polys need to be defined in clock-wise order
 type Poly []Vec2
 
@@ -41,7 +37,6 @@ func (p *Poly) Clip(s *Seg2) {
 	if clip2 == -1 {
 		return
 	}
-	fmt.Printf("Isect at %d: %v, %d: %v\n", clip1, isect1, clip2, isect2)
 	var clipper Poly
 	clipper = append(clipper, isect1)
 	clipper = append(clipper, isect2)
