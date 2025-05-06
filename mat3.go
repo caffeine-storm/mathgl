@@ -194,21 +194,6 @@ func (m *Mat3) RotationZ(radians float32) {
 	m[8] = 1.0
 }
 
-// Sets the matrix to a matrix that rotates with the help of the given quaternion
-func (m *Mat3) RotationQuaternion(pIn *Quaternion) {
-	m[0] = 1.0 - 2.0*(pIn.Y*pIn.Y+pIn.Z*pIn.Z)
-	m[1] = 2.0 * (pIn.X*pIn.Y - pIn.W*pIn.Z)
-	m[2] = 2.0 * (pIn.X*pIn.Z + pIn.W*pIn.Y)
-
-	m[3] = 2.0 * (pIn.X*pIn.Y + pIn.W*pIn.Z)
-	m[4] = 1.0 - 2.0*(pIn.X*pIn.X+pIn.Z*pIn.Z)
-	m[5] = 2.0 * (pIn.Y*pIn.Z - pIn.W*pIn.X)
-
-	m[6] = 2.0 * (pIn.X*pIn.Z - pIn.W*pIn.Y)
-	m[7] = 2.0 * (pIn.Y*pIn.Z + pIn.W*pIn.X)
-	m[8] = 1.0 - 2.0*(pIn.X*pIn.X+pIn.Y*pIn.Y)
-}
-
 // Sets the matrix to a matrix that rotates with the help of the given vector Vec3 and angle float32
 func (m *Mat3) RotationAxisAngle(axis Vec3, radians float32) {
 	rcos := Fcos32(radians)

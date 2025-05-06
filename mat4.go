@@ -309,29 +309,6 @@ func (m *Mat4) RotationZ(radians float32) {
 	m[15] = 1.0
 }
 
-// Sets the matrix to a matrix that rotates with the help of the given quaternion
-func (m *Mat4) RotationQuaternion(pIn *Quaternion) {
-	m[0] = 1.0 - 2.0*(pIn.Y*pIn.Y+pIn.Z*pIn.Z)
-	m[1] = 2.0 * (pIn.X*pIn.Y - pIn.W*pIn.Z)
-	m[2] = 2.0 * (pIn.X*pIn.Z + pIn.W*pIn.Y)
-	m[3] = 0.0
-
-	m[4] = 2.0 * (pIn.X*pIn.Y + pIn.W*pIn.Z)
-	m[5] = 1.0 - 2.0*(pIn.X*pIn.X+pIn.Z*pIn.Z)
-	m[6] = 2.0 * (pIn.Y*pIn.Z - pIn.W*pIn.X)
-	m[7] = 0.0
-
-	m[8] = 2.0 * (pIn.X*pIn.Z - pIn.W*pIn.Y)
-	m[9] = 2.0 * (pIn.Y*pIn.Z + pIn.W*pIn.X)
-	m[10] = 1.0 - 2.0*(pIn.X*pIn.X+pIn.Y*pIn.Y)
-	m[11] = 0.0
-
-	m[12] = 0.0
-	m[13] = 0.0
-	m[14] = 0.0
-	m[15] = 1.0
-}
-
 // Sets the matrix to a matrix that rotates with the help of the given vector Vec3 and angle float32
 func (m *Mat4) RotationAxisAngle(axis Vec3, radians float32) {
 	rcos := Fcos32(radians)
@@ -441,14 +418,6 @@ func (m *Mat4) ExtractRotation() *Mat3 {
 	out[8] = m[10]
 
 	return &out
-}
-
-// Take the rotation from a 4x4 transformation matrix, and return it as an axis and an angle (in radians)
-func (m *Mat4) RotationToAxisAngle() (*Vec3, float32) {
-	var temp Quaternion
-	rotation := m.ExtractRotation()
-	temp.RotationMatrix(rotation)
-	return temp.QuaternionToAxisAngle()
 }
 
 // Sets the matrix to a transformation matrix using a 3x3 rotation matrix and a 3d vector representing a translation.
