@@ -1,2 +1,0 @@
-- Makefile is out-of-date; we should rely on the `go build ...` goodness baked
-  into modern go.
